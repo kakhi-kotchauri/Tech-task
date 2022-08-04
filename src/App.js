@@ -2,6 +2,7 @@ import './App.css';
 import headline from './images/headline.png'
 import paragraph from './images/paragraph.png'
 import image from './images/image.png'
+import testimage from './images/testimage.png'
 import { useState } from 'react';
 import Slotitem from './components/slotitem';
 
@@ -13,41 +14,52 @@ function App() {
 
     {
       id : 0,
-      text : 'Headline',
-      picture : headline
+      type : 'Headline',
+      icon : headline,
+      image : null,
+      text : 'type text'
     },
 
     {
       id : 1,
-      text : 'paragraph',
-      picture : paragraph
+      type : 'paragraph',
+      icon : paragraph,
+      image : null,
+      text : 'type text'
     },
 
     {
       id : 2,
-      text : 'button',
-      picture : image
+      type : 'button',
+      icon : image,
+      image : null,
+      text : 'type text'
     },
 
     {
       id : 3,
-      text : 'image',
-      picture : image
+      type : 'image',
+      icon : image,
+      image : testimage,
+      text : 'type text here'
     },
 
   ]
 
   const [newworkspaceItems, setnewworkspaceItems] = useState(workspaceItems)
-  const [finalRender, setfinalRender] = useState([])
+  const [rerender, setrerender] = useState(true)
+  const [update, setupdate] = useState(false)
 
 
 
-  function additem(text, pic) {
+  function additem(type, icon, image) {
 
    const obj = {
       id : newworkspaceItems.length > 0 ? Math.max(...newworkspaceItems.map(e => e.id)) + 1 : 0,
-      text : text,
-      picture : pic
+      type : type,
+      icon : icon,
+      image : image ? image : null,
+      text : 'type text'
     }
 
     setnewworkspaceItems([...newworkspaceItems, obj])
@@ -56,13 +68,8 @@ function App() {
 
 
   function renderOnRight() {
-    setfinalRender([...newworkspaceItems])
+    setupdate(!update)
   }
-
-  // console.log(finalRender)
-
-
-
 
 
 
@@ -74,7 +81,7 @@ function App() {
 
         <div className='container-parrent'>
 
-          <div onClick={() => additem('headline', headline)} className='containers'>
+          <div onClick={() => additem('Headline', headline)} className='containers'>
             <img className='container-photos' src={headline} alt="headline" />
             <p>Headline</p>
           </div>
@@ -89,7 +96,7 @@ function App() {
             <p>button</p>
           </div>
 
-          <div onClick={() => additem('image', image)} className='containers'>
+          <div onClick={() => additem('image', image, testimage)} className='containers'>
             <img className='container-photos' src={image} alt="headline" />
             <p>image</p>
           </div>
@@ -98,19 +105,29 @@ function App() {
 
        </div>
 
+       <div>
+
+        {
+          rerender ?
 
        <div className='middle-section'>
            {
             newworkspaceItems.map((item, index) => {
               return (
               <div  key={index}>
-                 <Slotitem item={item} props={{newworkspaceItems, setnewworkspaceItems}} />
+                 <Slotitem proprender={{setrerender}} renderOnRight={renderOnRight} item={item} props={{newworkspaceItems, setnewworkspaceItems}} />
               </div>
               )
             })
           }
 
-         <button onClick={() => renderOnRight()}>render on right</button>
+       </div>
+
+       : 
+
+       <div className='middle-section' ></div>
+
+        }
 
        </div>
 
@@ -118,14 +135,16 @@ function App() {
 
        <div className='final-render'>
           {
-            finalRender.map((item, index) => {
+            newworkspaceItems.map((item, index) => {
               return (
               <div  key={index}>
-                <div className='workspace-par-render'>
-                  <img src={item.picture} alt="slotpicture" />
-                  <p>{item.text}</p>
-                  <p>{item.id}</p>
-                </div>
+                  {
+                    (item.type === 'Headline') ? 
+                    (<h1 className='headline'>{item.text}</h1>) : ((item.type === 'paragraph') ? 
+                    (<p className='paragraph' >{item.text}</p>) : ((item.type === 'button') ?
+                    (<button className='button'>{item.text}</button>) : ((item.type === 'image') ? 
+                    (<img className='image' src={item.image} alt="img" />) : null)))
+                  }
               </div>
               )
             })

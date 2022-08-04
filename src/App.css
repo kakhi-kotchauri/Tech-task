@@ -91,6 +91,10 @@ table {
 	cursor: pointer;
 }
 
+.containers:hover {
+	background-color: #d9dadfcc;
+}
+
 .container-photos {
 	width: 25px;
 }
@@ -127,6 +131,25 @@ table {
 	cursor: pointer;
 }
 
+.workspace-par:hover {
+	background-color: rgba(221, 224, 226, 0.838);
+}
+
+
+.workspace-par-active {
+	width: 480px;
+	height: 131px;
+	padding: 10px;
+	margin: 10px 0 10px 0;
+	background-color: #D9E7FF;
+	border-radius: 6px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	cursor: pointer;
+}
+
 
 .movment {
 	width: 53px;
@@ -155,12 +178,12 @@ table {
 }
 
 .arrows {
-	width: 12px;
+	width: 14px;
 	cursor: pointer;
 }
 
 .final-render {
-	background-color: #9fa6adc9;
+	/* background-color: #9fa6adc9; */
 	border: 1px solid gray;
 	width: 450px;
 	min-height: 780px;
@@ -183,4 +206,47 @@ table {
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+}
+
+
+.headline {
+	font-size: 22px;
+	margin: 10px 0 10px 0;
+}
+
+.paragraph {
+	font-size: 14px;
+	color: #97AACD;
+	margin: 10px 0 10px 0;
+}
+
+.button {
+	width: 145px;
+	height: 40px;
+	background-color: #4368E0;
+	border-radius: 4px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	margin: 10px 0 10px 0;
+}
+
+
+.button:hover {
+	background-color: #6172a9;
+}
+
+.image {
+	width: 400px;
+	margin: 10px 0 10px 0;
+}
+
+
+.input {
+	width: 457px;
+	height: 38px;
+	border-radius: 3px;
+	border: solid 1px gray;
+	padding-left: 10px;
 }
