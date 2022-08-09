@@ -62,7 +62,7 @@ table {
 	width: 270px;
 	height: 780px;
 	/* background-color: aquamarine; */
-	border: solid 1px gray;
+	border: solid 1px #E4E6F1;
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
@@ -184,7 +184,7 @@ table {
 
 .final-render {
 	/* background-color: #9fa6adc9; */
-	border: 1px solid gray;
+	border: 1px solid #E4E6F1;
 	width: 450px;
 	min-height: 780px;
 	padding-top: 30px;
@@ -218,6 +218,9 @@ table {
 	font-size: 14px;
 	color: #97AACD;
 	margin: 10px 0 10px 0;
+	max-width: 400px;
+	line-height: 1.2;
+	text-align: center;
 }
 
 .button {
@@ -243,10 +246,19 @@ table {
 }
 
 
+
+
+
 .input {
 	width: 457px;
 	height: 38px;
 	border-radius: 3px;
 	border: solid 1px gray;
 	padding-left: 10px;
+}
+
+.image-warning {
+	color: red;
+	text-align: center;
+	margin: 5px 0 5px 0;
 }

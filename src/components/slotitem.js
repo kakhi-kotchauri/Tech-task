@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 
 export default function Slotitem({props, item, renderOnRight, proprender}) {
 
-    const [toggle, settoggle] = useState(false)
+    const [url, seturl] = useState(item.image)
     const [value, setvalue] = useState(item.text)
     
     const newworkspaceItems = props.newworkspaceItems
@@ -33,6 +33,7 @@ export default function Slotitem({props, item, renderOnRight, proprender}) {
         const newitem = structuredClone(finditem)
         const highestid = Math.max(...newworkspaceItems.map(e => e.id))
         newitem.id = highestid + 1
+        newitem.istoggled = false
         const items = [...newworkspaceItems]
         items.splice(newworkspaceItems.indexOf(finditem) + 1, 0, newitem)
         setnewworkspaceItems(items)
@@ -76,47 +77,85 @@ export default function Slotitem({props, item, renderOnRight, proprender}) {
         }
       }
 
+      function imagesetter(id) {
+        const finditem = newworkspaceItems.find(item => item.id === id)
+        if(finditem) {
+          finditem.image = url
+        }
+      }
+
+      function toggleseter(e, id) {
+        if(e.target === workspaceref.current) {
+        const finditem = newworkspaceItems.find(item => item.id === id)
+        finditem.rownumber =  Math.max(...newworkspaceItems.map(e => e.rownumber)) + 1
+        finditem.istoggled = !finditem.istoggled
+        const findtoggled = newworkspaceItems.filter(item => item.istoggled === true)
+        console.log(findtoggled.sort((a, b) => a.rownumber - b.rownumber))
+        console.log(newworkspaceItems)
+        if(findtoggled.length > 1) {
+          findtoggled.sort((a, b) => a.rownumber - b.rownumber)[0].istoggled = false
+          findtoggled.sort((a, b) => a.rownumber - b.rownumber)[0].rownumber = 0
+          findtoggled.sort((a, b) => a.rownumber - b.rownumber)[1].rownumber = 1
+        }
+          setrerender(false)
+          setTimeout(() => {
+          setrerender(true)
+          }, 50)
+        }
+      }
+
+
       useEffect(() => {
         textsetter(item.id)
       }, [value])
 
+      useEffect(() => {
+        imagesetter(item.id)
+      }, [url])
+
 
       useEffect(() => {
         renderOnRight()
-      }, [newworkspaceItems, value])
+      }, [newworkspaceItems, value, url])
+      
       
 
-      function toggleseter(e) {
-        if(e.target === workspaceref.current) {
-          settoggle(!toggle)
-        }
-      }
-      
 
 
 
     return (
         <div   className='workspace-slot' >
 
-            <div ref={workspaceref} onClick={(e) => toggleseter(e) } className={toggle ? 'workspace-par-active' : 'workspace-par'}>
+            <div ref={workspaceref} onClick={(e) => toggleseter(e , item.id) } className={item.istoggled ? 'workspace-par-active' : 'workspace-par'}>
               <img src={item.icon} alt="slotpicture" />
                 <p>{item.type}</p>
                   
                   <div>
                     {
-                      item.image === null && toggle ?
-                      <div>
+                       item.type !== 'image' && item.istoggled ? 
+                       <div>
                 <input className='input' type="text" name="text" value={value} onChange={(e) => setvalue(e.target.value)} />
-                      </div>
-                      : null
-                    }
+                       </div>
+                       : null
+                    } 
+                  </div>
+
+                  <div>
+                    {
+                       item.type === 'image' && item.istoggled ? 
+                       <div>
+                        <p className='image-warning'>please enter valid url of image down below</p>
+                <input className='input' type="text" name="text" value={url}  onChange={(e) => seturl(e.target.value)} />
+                       </div>
+                       : null
+                    } 
                   </div>
 
             </div>
 
                 <div>
                     {
-                        toggle?
+                        item.istoggled?
                     <div>
 
                         <div className='movment'>

@@ -14,34 +14,43 @@ function App() {
 
     {
       id : 0,
+      type : 'image',
+      istoggled : false,
+      rownumber : 0,
+      icon : image,
+      image : testimage,
+      text : 'type text here'
+    },
+
+
+    {
+      id : 1,
       type : 'Headline',
+      istoggled : false,
+      rownumber : 0,
       icon : headline,
       image : null,
       text : 'type text'
     },
 
     {
-      id : 1,
+      id : 2,
       type : 'paragraph',
+      istoggled : false,
+      rownumber : 0,
       icon : paragraph,
       image : null,
       text : 'type text'
     },
 
     {
-      id : 2,
+      id : 3,
       type : 'button',
+      istoggled : false,
+      rownumber : 0,
       icon : image,
       image : null,
       text : 'type text'
-    },
-
-    {
-      id : 3,
-      type : 'image',
-      icon : image,
-      image : testimage,
-      text : 'type text here'
     },
 
   ]
@@ -57,6 +66,8 @@ function App() {
    const obj = {
       id : newworkspaceItems.length > 0 ? Math.max(...newworkspaceItems.map(e => e.id)) + 1 : 0,
       type : type,
+      istoggled : false,
+      rownumber : 0,
       icon : icon,
       image : image ? image : null,
       text : 'type text'
